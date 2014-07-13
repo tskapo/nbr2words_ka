@@ -1,104 +1,101 @@
 // მაგალითი : ას ოცდაცხრამეტი მილიონ ცხრაას ოთხმოცდაშვიდი ათას ხუთას ოცდათერთმეტი
-const ნული = "ნული";
-const ოცამდე = ["", "ერთი", "ორი", "სამი", "ოთხი", "ხუთი", "ექვსი", "შვიდო", "რვა", "ცხრა", "ათი", "თერთმეტი", "თორმეტი", "ცამეტი", "თოთხმეტი", "თხუთმეტი", "თექვსმეტი", "ჩვიდმეტი", "თვრამეტი", "ცხრამეტი"];
-const ასამდე = ["", "ოცი", "ორმოცი", "სამოცი", "ოთხმოცი"];
-const მეტი = ["", "ათასი", "მილიონი", "მილიარდი", "ტრილიონი", "კვადრილიონი", "კვინტილიონი", "სექსტილიონი", "სეპტილიონი", "ოქტილიონი", "ნონილიონი", "დეცილიონი", "უნდეცილიონი", "დეოდეცილიონი", "ტრედეცილიონი", "კვატტუოპდეცილიონი", "კვინდეცილიონი", "სედეცილიონი", "სეპტდეცილიონი", "დუოდევიგინტილიონი", "უნდევიგინტილიონი", "ვიგინტილიონი"];
-const და = "და";
-var კერძო_და = "და";
-var ათწილად_ნიშანი = ",";
-var მთელი, წილადი, ასები, ათასები, ათასი;
+const zero = "ნული";
+const upTo20 = ["", "ერთი", "ორი", "სამი", "ოთხი", "ხუთი", "ექვსი", "შვიდო", "რვა", "ცხრა", "ათი", "თერთმეტი", "თორმეტი", "ცამეტი", "თოთხმეტი", "თხუთმეტი", "თექვსმეტი", "ჩვიდმეტი", "თვრამეტი", "ცხრამეტი"];
+const upTo100 = ["", "ოცი", "ორმოცი", "სამოცი", "ოთხმოცი"];
+const more = ["", "ათასი", "მილიონი", "მილიარდი", "ტრილიონი", "კვადრილიონი", "კვინტილიონი", "სექსტილიონი", "სეპტილიონი", "ოქტილიონი", "ნონილიონი", "დეცილიონი", "უნდეცილიონი", "დეოდეცილიონი", "ტრედეცილიონი", "კვატტუოპდეცილიონი", "კვინდეცილიონი", "სედეცილიონი", "სეპტდეცილიონი", "დუოდევიგინტილიონი", "უნდევიგინტილიონი", "ვიგინტილიონი"];
+const and = "და";
+const asi = "ასი";
+const atasi = "ათასი";
+var decimalPoint = ",";
+var ineteger, decimal;
 
 /*    ფუნქციები    */
-function სამციფრიანებად (რიცხვი) {
-	var დრ = String(რიცხვი).trim().replace(/ /g, "");
-	var სამციფრიანები = [];
-	while (დრ.length > 0) {
-		სამციფრიანები.push(დრ.substr(-3));
-		დრ = დრ.slice(0, -3);
+function to3Digits (ricxvi) {
+	var tmp = String(ricxvi).trim().replace(/ /g, "");
+	var _3Digits = [];
+	while (tmp.length > 0) {
+		_3Digits.push(tmp.substr(-3));
+		tmp = tmp.slice(0, -3);
 	}
-
-	return სამციფრიანები;
+	return _3Digits;
 }
 
-function სიტყვებად (რიცხვი) {
-	var სამციფრიანები = სამციფრიანებად(რიცხვი);	var შედეგი = [];
-	for (var ი = 0; ი < სამციფრიანები.length; ი++) {
-		შედეგი.push(სიტყვად(სამციფრიანები[ი]));
+function getAsWords (ricxvi) {
+	var _3Digits = to3Digits(ricxvi);	
+	var results = [];
+	for (var ი = 0; ი < _3Digits.length; ი++) {
+		results.push(asWord(_3Digits[ი]));
 	}
-	var სიტყვებად = [];
-	for (var პ = 0; პ < შედეგი.length; პ++) {
-		var ეული = პ > 0
-			? შედეგი[პ - 1].length !== 0
-				? მეტი[პ].slice(0, -1)
-				: მეტი[პ]
+	var asWords = [];
+	for (var j = 0; j < results.length; j++) {
+		var ეული = j > 0
+			? results[j - 1].length !== 0
+				? more[j].slice(0, -1)
+				: more[j]
 			: "";
-		სიტყვებად.push([შედეგი[პ], ეული]);
+		asWords.push([results[j], ეული]);
 	}
-	სიტყვებად.reverse();
-	var პასუხი = [];
-	for (პ = 0; პ < სიტყვებად.length; პ++) {
-		პასუხი.push([სიტყვებად[პ].join(" ")]);
+	asWords.reverse();
+	var pasuxi = [];
+	for (j = 0; j < asWords.length; j++) {
+		pasuxi.push([asWords[j].join(" ")]);
 	}
-	პასუხი = პასუხი.join(" ").trim();
-	return პასუხი.length === 0
-		? ნული
-		: პასუხი;
+	pasuxi = pasuxi.join(" ").trim();
+	return pasuxi.length === 0
+		? zero
+		: pasuxi;
 }
 
-function განსაზღვრე_ათწილად_ნიშანი(ნიშანი) {
-	ათწილად_ნიშანი = ნიშანი;
+function setDecimalPoint(dp) {
+	decimalPoint = dp;
 }
 
-function დაყავი(რიცხვი) {
-	var დრ = რიცხვი.split(ათწილად_ნიშანი);
-	მთელი = დრ[0] || "";
-	წილადი = დრ[1] || "";
+function split(ricxvi) {
+	var tmp = ricxvi.split(decimalPoint);
+	ineteger = tmp[0] || "";
+	decimal = tmp[1] || "";
 }
 
-function ოცამდე_სიტყვად(რიცხვი) {
-	return ოცამდე[რიცხვი];
+function upTo20_asWord(ricxvi) {
+	return upTo20[ricxvi];
 }
 
-function ასამდე_სიტყვად(რიცხვი) {
-	var ნაშთი = რიცხვი % 20;
-	var რბა = Math.floor(რიცხვი / 20);
-	return ნაშთი === 0 ? ასამდე[რბა] : ასამდე[რბა].slice(0, -1) + "და" + ოცამდე_სიტყვად(ნაშთი);
+function upTo100_asWord(ricxvi) {
+	var ნაშთი = ricxvi % 20;
+	var რბა = Math.floor(ricxvi / 20);
+	return ნაშთი === 0 ? upTo100[რბა] : upTo100[რბა].slice(0, -1) + and + upTo20_asWord(ნაშთი);
 }
 
-function ათასამდე_სიტყვად(რიცხვი) {
-	var ასამდე = ასამდე_სიტყვად(რიცხვი.substr(1));
-	var რბა = რიცხვი.substr(0, 1);
-	var ასი = რბა == 1 ? "ასი" : ოცამდე[რბა].slice(0, -1) + "ასი";
-	return ასამდე === 0 || ასამდე.length === 0 ? ასი : ასი.slice(0, -1) + " " + ასამდე;
+function upTo1000_asWord (ricxvi) {
+	var upTo100 = upTo100_asWord(ricxvi.substr(1));
+	var nbr = ricxvi.substr(0, 1);
+	var hund = nbr == 1 ? asi : upTo20[nbr].slice(0, -1) + asi;
+	return upTo100 === 0 || upTo100.length === 0 ? hund : hund.slice(0, -1) + " " + upTo100;
 }
 
-function ათასები_სიტყვად(რიცხვი) {
-	var რბა = სიტყვად(რიცხვი);
-	return რბა === "ერთი" ? "ათასი" : რბა + " ათასი";
-}
-
-function სიტყვად(რიცხვი) {
-	რიცხვი = Number(რიცხვი);
-	if (რიცხვი < 20) {
-		return ოცამდე_სიტყვად(რიცხვი);
+function asWord(ricxvi) {
+	ricxvi = Number(ricxvi);
+	if (ricxvi < 20) {
+		return upTo20_asWord(ricxvi);
 	}
-	რიცხვი = String(რიცხვი);
-	switch (რიცხვი.length) {
+	ricxvi = String(ricxvi);
+	switch (ricxvi.length) {
 		case 2:
-			return ასამდე_სიტყვად(რიცხვი);
+			return upTo100_asWord(ricxvi);
 		case 3:
-			return ათასამდე_სიტყვად(რიცხვი);
+			return upTo1000_asWord(ricxvi);
 		default:
-			console.log(რიცხვი + " : რიცხვის სიგრძე ამ ფუნქციაში არ უნდა აღემატებოდეს 3-ს");
+			console.log(ricxvi + " : ricxviს სიგრძე ამ ფუნქციაში არ უნდა აღემატებოდეს 3-ს");
 	}
+	return "";
 }
-console.log(სიტყვებად(000));
-console.log(სიტყვებად(001));
-console.log(სიტყვებად(223));
-console.log(სიტყვებად(249));
-console.log(სიტყვებად(400));
-console.log(სიტყვებად(4444));
-console.log(სიტყვებად(56378));
-console.log(სიტყვებად(123456789001));
-console.log(სიტყვებად("123456789001123456789001"));
+console.log(getAsWords(000));
+console.log(getAsWords(001));
+console.log(getAsWords(223));
+console.log(getAsWords(249));
+console.log(getAsWords(400));
+console.log(getAsWords(4444));
+console.log(getAsWords(56378));
+console.log(getAsWords(123456789001));
+console.log(getAsWords("9123456789001123456789001"));
 
