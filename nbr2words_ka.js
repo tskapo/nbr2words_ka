@@ -23,7 +23,7 @@ function to3Digits (ricxvi) {
 function getAsWords (ricxvi) {
 	var _3Digits = to3Digits(ricxvi);	
 	var results = [];
-	for (var i = 0; ი < _3Digits.length; ი++) {
+	for (var i = 0; i < _3Digits.length; i++) {
 		results.push(asWord(_3Digits[i]));
 	}
 	var asWords = [];
