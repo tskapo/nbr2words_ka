@@ -23,17 +23,17 @@ function to3Digits (ricxvi) {
 function getAsWords (ricxvi) {
 	var _3Digits = to3Digits(ricxvi);	
 	var results = [];
-	for (var ი = 0; ი < _3Digits.length; ი++) {
-		results.push(asWord(_3Digits[ი]));
+	for (var i = 0; ი < _3Digits.length; ი++) {
+		results.push(asWord(_3Digits[i]));
 	}
 	var asWords = [];
 	for (var j = 0; j < results.length; j++) {
-		var ეული = j > 0
+		var alone = j > 0
 			? results[j - 1].length !== 0
 				? more[j].slice(0, -1)
 				: more[j]
 			: "";
-		asWords.push([results[j], ეული]);
+		asWords.push([results[j], alone]);
 	}
 	asWords.reverse();
 	var pasuxi = [];
@@ -61,9 +61,9 @@ function upTo20_asWord(ricxvi) {
 }
 
 function upTo100_asWord(ricxvi) {
-	var ნაშთი = ricxvi % 20;
-	var რბა = Math.floor(ricxvi / 20);
-	return ნაშთი === 0 ? upTo100[რბა] : upTo100[რბა].slice(0, -1) + and + upTo20_asWord(ნაშთი);
+	var nashti = ricxvi % 20;
+	var rba = Math.floor(ricxvi / 20);
+	return nashti === 0 ? upTo100[rba] : upTo100[rba].slice(0, -1) + and + upTo20_asWord(nashti);
 }
 
 function upTo1000_asWord (ricxvi) {
