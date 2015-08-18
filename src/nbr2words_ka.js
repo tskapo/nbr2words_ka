@@ -43,7 +43,7 @@ var sityvebad = (function () {
 		pasuxi = pasuxi.join(" ").trim();
 		return pasuxi.length === 0
 			? zero
-			: pasuxi;
+			: pasuxi.replace(/  /g, " ");
 	}
 	
 	function setDecimalPoint(dp) {
